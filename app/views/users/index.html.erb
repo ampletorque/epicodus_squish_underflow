@@ -1,7 +1,9 @@
-<% if user_signed_in? %>
+<h1>Welcome</h1>
+
+<% if current_user %>
   <% case current_user.role %>
   <% when 'user' %>
-    <h3>Welcome</h3>
+    <h3>Welcome, User</h3>
   <% when 'admin' %>
     <h3>Welcome, Administrator</h3>
   <% end %>

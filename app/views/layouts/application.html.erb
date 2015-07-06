@@ -1,13 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SquishUnderflow</title>
+  <title>Squish Underflow</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+  <%if flash.present? %>
+    <% flash.each do |msg| %>
+      <div class="<%=msg[0]%>">
+        <%=msg[1]%>
+      </div>
+    <%end%>
+  <%end%>
+  <nav>
+    <ul>
+      <li>
+        <a href="/log-in">Log In</a>
+      </li>
+      <li>
+        <a href="/log-out">Log Out</a>
+      </li>
+      <li>
+        <a href="/users/new">Sign Up</a>
+      </li>
+    </ul>
+  </nav>
 <%= yield %>
 
 </body>

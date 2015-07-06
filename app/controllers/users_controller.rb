@@ -1,19 +1,20 @@
 class UsersController < ApplicationController
 
-  before_filter :authenticate
-  before_filter :admin_only, :except => :show
+  before_filter :authorize, :except => [:new, :create]
+  # before_filter :admin_only, :except => :show
 
   def index
     @users = User.all
   end
 
-  def authenticate
-    if current_user = User.authenticate("john@john.com", "badpassword1234")
-      redirect_to users_path, :id => current_user.id
-    else
-      redirect_to users_path, :alert => "Not logged in."
-    end
-  end
+  # def authenticate
+  #   # if current_user = User.authenticate("john@john.com", "badpassword1234")
+  #   if current_user = User.authenticate(user.name, user.password)
+  #     redirect_to users_path, :id => current_user.id
+  #   else
+  #     redirect_to log_in
+  #   end
+  # end
 
   def show
     @user = User.find(params[:id])
@@ -33,6 +34,9 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+  end
+
   def destroy
     user = User.find(params[:id])
     user.destroy
@@ -40,6 +44,7 @@ class UsersController < ApplicationController
   end
 
   def new
+
   end
 
   def create
@@ -57,6 +62,7 @@ class UsersController < ApplicationController
 
   def admin_only
     unless current_user.admin?
+    # unless current_user.role == admin
       redirect_to :back, :alert => "Access denied."
     end
   end
