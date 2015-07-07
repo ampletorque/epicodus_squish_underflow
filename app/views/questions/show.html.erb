@@ -1,0 +1,39 @@
+<% content_for(:title, "Question in Squish Underflow") %>
+<div class ="container">
+
+  <h1><%= @question.title %></h1>
+  <h4><%= @question.description %></h4>
+question.date
+question.cumulative_rating
+
+  <% if @question.answers.any? %>
+  <h4>Your answers:</h4>
+
+  <ul>
+    <% @question.answers.each do |review| %>
+    <li>
+      <%= answer.user %>:
+      <%= answer.title %>:
+      <%= answer.description %>
+      answer.date
+      answer.cumulative_rating
+
+
+      <%= link_to "Edit", edit_question_answer_path(@question, answer) %>
+      <%= link_to "Delete", question_answer_path(@question, answer),
+      :data => {:confirm => "Are you sure?",
+        :method => "delete"} %>
+      </li>
+      <% end %>
+    </ul>
+    <% else %>
+    <p>No answers yet.</p>
+    <% end %>
+
+    <p><%= link_to "Add an answer", new_question_answer_path(@question) %></p>
+    <p><%= link_to "Delete Wine", question_path(@question),
+    :data => {:confirm => "Are you sure?",
+      :method => "delete"} %> </p>
+
+      <p><%= link_to "Return to questions", questions_path %></p>
+    </div>

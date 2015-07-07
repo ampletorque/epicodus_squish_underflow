@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_many :answers
+  has_many :questions
 
   enum role: [:user, :admin]
   after_initialize :set_default_role, :if => :new_record?
