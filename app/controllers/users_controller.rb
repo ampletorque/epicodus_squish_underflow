@@ -5,6 +5,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
+    @user = User.find(session[:user_id])
   end
 
   # def authenticate
@@ -17,7 +18,7 @@ class UsersController < ApplicationController
   # end
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find(session[:user_id])
     unless current_user.admin?
       unless @user == current_user
         redirect_to :back, :alert => "Access denied."
@@ -26,7 +27,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
+    @user = User.find(session[:user_id])
     if @user.update_attributes(secure_params)
       redirect_to users_path, :notice => "User updated."
     else
@@ -38,7 +39,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    user = User.find(params[:id])
+    @user = User.find(session[:user_id])
     user.destroy
     redirect_to users_path, :notice => "User deleted."
   end

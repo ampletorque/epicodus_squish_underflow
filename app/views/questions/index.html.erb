@@ -3,18 +3,20 @@
 <div class ="container">
   <h1>Questions</h1>
 
-  <h2>Featured Question!</h2>
-  <h4><%= @random_question.title %></h4>
+  <% if @random_question %>
+    <h2>Featured Question!</h2>
+    <h4><%= @random_question.title %></h4>
+  <% end %>
 
   <ul>
-    <% @questions.each do |question| %>
-    <li><%= link_to question.title, question_path(question) %> | rating: question.cumulative_rating | date: question.date %> </li>
-    <% end %>
+      <% @questions.each do |question| %>
+        <li><%= link_to question.title, user_question_path(@user, question) %> | rating: question.cumulative_rating | date: question.date  </li>
+      <% end %>
   </ul>
 
-  <p><%= link_to "alphabetical order", questions_path(sort_order: "title"), method: :get %> | <%= link_to "rating order", questions_path(sort_order: "average_rating"), method: :get %> | <%= link_to "date order", wines_path(sort_order: "year"), method: :get %></p>
+  <p><%= link_to "alphabetical order", user_questions_path(sort_order: "title"), method: :get %> | <%= link_to "rating order", user_questions_path(sort_order: "average_rating"), method: :get %> | <%= link_to "date order", user_questions_path(sort_order: "year"), method: :get %></p>
 
   <p>
-    <%= link_to "Add Question", new_question_path(@wine), :class => "btn btn-success" %>
+    <%= link_to "Add Question", new_user_question_path(@user), :class => "btn btn-success" %>
   </p>
 </div>

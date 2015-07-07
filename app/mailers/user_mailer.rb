@@ -8,7 +8,7 @@ class UserMailer < ApplicationMailer
   #   en.user_mailer.signup_confirmation.subject
   #
 
-  API_KEY = "key-9a8b1e531c8c48578546bf5c19fa9a7e"
+  API_KEY = ""
   API_URL = "https://api:#{API_KEY}@api.mailgun.net/v3/sandboxafb609c0e1ae43c5bd693b6f41cf60e0.mailgun.org"
 
   def signup_confirmation(user)

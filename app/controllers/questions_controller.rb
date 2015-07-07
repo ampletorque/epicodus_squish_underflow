@@ -7,8 +7,11 @@ class QuestionsController <ApplicationController
     # else
     #   @sort_order = "name"
     # end
+    @users = User.all
 
-    @questions = Question.all.sort_by {|question| question.public_send(@sort_order) }
+    @user = User.find(params[:user_id])
+    # @questions = Question.all.sort_by {|question| question.public_send(@sort_order) }
+    @questions = Question.all
     @random_question = Question.order("RANDOM()").first
 
   end
@@ -20,14 +23,16 @@ class QuestionsController <ApplicationController
 
   def new
     @user = User.find(params[:user_id])
-    @question = Question.new
+    # @question = Question.new
+    @question = @user.questions.new
   end
 
   def create
     @user = User.find(params[:user_id])
-    @question = Question.new(question_params)
+    # @question = Question.new(question_params)
+    @question = @user.question.new(question_params)
     if @question.save
-      redirect_to questions_path
+      redirect_to user_questions_path
     else
       render :new
     end
